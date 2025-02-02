@@ -31,10 +31,11 @@
         }
         
         .gallery {
-            display: grid;
+            display: none;
             gap: 20px;
             justify-content: center;
             padding: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
         
         .retrato {
@@ -78,32 +79,50 @@
             84% { background-image: url('retrato7.jpg'); }
             100% { background-image: url('retrato1.jpg'); }
         }
+
+        .play-button {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            border: 2px solid #333;
+            padding: 20px 40px;
+            font-size: 2em;
+            cursor: pointer;
+            z-index: 1;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .play-button:hover {
+            background-color: #333;
+            color: #fff;
+            border-color: #fff;
+        }
+
+        .blur {
+            filter: blur(10px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 </head>
 <body>
-    <div class="carousel"></div>
+    <div class="carousel blur"></div>
     <audio id="background-music" loop>
         <source src="musica.mp3" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
     </audio>
     
-    <script>
-        window.addEventListener('load', function() {
-            const audio = document.getElementById("background-music");
-            audio.volume = 1.0;
-            audio.play().catch(error => console.log("Reprodução automática bloqueada pelo navegador."));
-        });
-
-        document.addEventListener('click', function() {
-            const audio = document.getElementById("background-music");
-            if (audio.paused) {
-                audio.play();
-            }
-        }, { once: true });
-    </script>
+    <button class="play-button" id="play-button">Play</button>
     
-    <h1>Jaaziel & Daylane</h1>
-    <p>"O amor é paciente, o amor é bondoso..." (1 Coríntios 13:4)</p>
+    <h1 class="blur">Jaaziel & Daylane</h1>
+    <p class="blur">"O amor é paciente, o amor é bondoso..." (1 Coríntios 13:4)</p>
     
     <div class="gallery retrato">
         <script>
@@ -120,5 +139,19 @@
             }
         </script>
     </div>
+    
+    <script>
+        document.getElementById('play-button').addEventListener('click', function() {
+            const audio = document.getElementById("background-music");
+            audio.volume = 1.0;
+            audio.play().catch(error => console.log("Reprodução automática bloqueada pelo navegador."));
+            
+            document.querySelector('.play-button').style.display = 'none';
+            document.querySelector('.carousel').classList.remove('blur');
+            document.querySelector('h1').classList.remove('blur');
+            document.querySelector('p').classList.remove('blur');
+            document.querySelectorAll('.gallery').forEach(gallery => gallery.style.display = 'grid');
+        });
+    </script>
 </body>
 </html>
