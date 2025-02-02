@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaaziel & Daylane</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
+        
+        body {
+            font-family: 'Pinyon Script', cursive;
+            text-align: center;
+            color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        h1 {
+            font-size: 4em;
+            color: #f8f9fa;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        p {
+            font-size: 2em;
+            font-style: italic;
+            color: #f8f9fa;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .gallery {
+            display: grid;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .retrato {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .paisagem {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        img {
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        img:hover {
+            transform: scale(1.1);
+        }
+        
+        .carousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            animation: carousel 49s infinite;
+        }
+        
+        @keyframes carousel {
+            0% { background-image: url('retrato1.jpg'); }
+            14% { background-image: url('retrato2.jpg'); }
+            28% { background-image: url('retrato3.jpg'); }
+            42% { background-image: url('retrato4.jpg'); }
+            56% { background-image: url('retrato5.jpg'); }
+            70% { background-image: url('retrato6.jpg'); }
+            84% { background-image: url('retrato7.jpg'); }
+            100% { background-image: url('retrato1.jpg'); }
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel"></div>
+    <audio id="background-music" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    
+    <script>
+        window.addEventListener('load', function() {
+            const audio = document.getElementById("background-music");
+            audio.volume = 1.0;
+            audio.play().catch(error => console.log("Reprodução automática bloqueada pelo navegador."));
+        });
+
+        document.addEventListener('click', function() {
+            const audio = document.getElementById("background-music");
+            if (audio.paused) {
+                audio.play();
+            }
+        }, { once: true });
+    </script>
+    
+    <h1>Jaaziel & Daylane</h1>
+    <p>"O amor é paciente, o amor é bondoso..." (1 Coríntios 13:4)</p>
+    
+    <div class="gallery retrato">
+        <script>
+            for (let i = 1; i <= 34; i++) {
+                document.write(`<a href='retrato${i}.jpg' target='_blank'><img src='retrato${i}.jpg' alt='Retrato ${i}'></a>`);
+            }
+        </script>
+    </div>
+    
+    <div class="gallery paisagem">
+        <script>
+            for (let i = 1; i <= 26; i++) {
+                document.write(`<a href='paisagem${i}.jpg' target='_blank'><img src='paisagem${i}.jpg' alt='Paisagem ${i}'></a>`);
+            }
+        </script>
+    </div>
+</body>
+</html>
